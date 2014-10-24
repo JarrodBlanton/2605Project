@@ -2,8 +2,11 @@
   <library name="Jama-1.0.3">
     <CLASSES>
       <root url="jar://$USER_HOME$/Downloads/Jama-1.0.3.jar!/" />
+      <root url="file://$USER_HOME$/Downloads/Jama" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="file://$USER_HOME$/Downloads/Jama/doc" />
+    </JAVADOC>
     <SOURCES />
   </library>
 </component>
