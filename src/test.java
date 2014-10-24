@@ -7,11 +7,9 @@ import Jama.Matrix;
 public class test {
     public static void main(String[] piratenoises) {
         System.out.println("jarrod i hate you, also tell me if you see this change.");
-        createMatrix();
         Matrix matrix = new Matrix(3, 3, 1.0);
-        System.out.println(sum(matrix));
-
-    }
+        matrix = matrix.plus(matrix);
+        matrix.print(0,0);
 
     }
 
