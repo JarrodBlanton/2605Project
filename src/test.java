@@ -13,13 +13,6 @@ public class test {
 
     }
 
-    public static void createMatrix() {
-        double[][] arr = new double[2][2];
-        for (int i = 0; i < 2; i++) {
-            arr[i][i] = 1;
-        }
-        Matrix a = new Matrix(arr);
-        a.print(0, 0);
     }
 
     public static int sum(Matrix matrix) {
