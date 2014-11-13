@@ -36,7 +36,7 @@ public class gn_log {
             BufferedReader br = new BufferedReader(new FileReader(file));
             int i = 0;
             boolean done = false;
-            while (br.ready() && done == false) {
+            while (br.ready() && !done) {
                 String read = br.readLine();
                 if (read == null) {
                     done = true;

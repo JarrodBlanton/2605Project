@@ -21,21 +21,23 @@ public class gn_qua {
             double y = arr[i+1];
             double x = arr[i];
             double solution = y - (a*(Math.pow(x,2)) + b*(x) + c);
-            rValsArr[0][1] = solution;
+            rValsArr[count][1] = solution;
             count++;
         }
         rVals = new Matrix(rValsArr);
         double[][] jValsArr = new double[arr.length/2][3];
+        count = 0;
         for (int i = 0; i < arr.length - 1; i+=2) {
             for (int j = 0; j < 3; j++) {
                 if (j == 0) {
-
+                    jValsArr[count][j] = -1 * Math.pow(arr[i], 2);
                 } else if (j == 1) {
-
+                    jValsArr[count][j] = -1 * arr[i];
                 } else {
-
+                    jValsArr[count][i] = -1;
                 }
             }
+            count++;
         }
     }
 

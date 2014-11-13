@@ -26,16 +26,18 @@ public class gn_rat {
         }
         rVals = new Matrix(rValsArr);
         double[][] jValsArr = new double[arr.length/2][3];
+        count = 0;
         for (int i = 0; i < arr.length - 1; i+=2) {
             for (int j = 0; j < 3; j++) {
                 if (j == 0) {
-
+                    jValsArr[count][j] = ((-1 * arr[i])/(arr[i] = b));
                 } else if (j == 1) {
-
+                    jValsArr[count][j] = ((a * arr[i])/Math.pow((arr[i] + b), 2));
                 } else {
-
+                    jValsArr[count][j] = -1;
                 }
             }
+            count++;
         }
     }
 

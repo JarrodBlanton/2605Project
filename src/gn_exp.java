@@ -31,16 +31,12 @@ public class gn_exp {
         count = 0;
         for (int i = 0; i < arr.length - 1; i += 2) {
             for (int j = 0; j < 3; ++j) {
-                switch (j) {
-                    case 0:
-                        
-                        break;
-                    case 1:
-
-                        break;
-                    case 2:
-
-                        break;
+                if (j==0) {
+                    jValsArray[count][j] = -1 * Math.exp(b * arr[i]);
+                } else if (j==1) {
+                    jValsArray[count][j] = -1 * arr[i] * Math.exp(b * arr[i]);
+                } else {
+                    jValsArray[count][j] = -1;
                 }
             }
         }
