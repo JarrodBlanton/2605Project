@@ -14,6 +14,7 @@ public class gn_log {
     Matrix matrixB;
     Matrix rVals;
     Matrix jacobian;
+
     public gn_log(File file, double a, double b, double c, int iter) {
         // Initialize B a vector of 3 coordinates
         double[][] abc = new double[3][1];
@@ -68,9 +69,17 @@ public class gn_log {
             for (int j = 0; j < 3; j++) {
                 // 3 cases:
                 // partial a. -log(x+b)
-                // partial b. -1/(b+x)
+                // partial b. -a/(b+x)
                 // partial c. -1
+                if (j == 0) {
+                    jVals[count][j] = -Math.log(arr[i] + b);
+                } else if (j == 1) {
+                    jVals[count][j] = -a/(b+arr[i]);
+                } else {
+                    jVals[count][j] = -1;
+                }
             }
+            count++;
         }
 
     }
