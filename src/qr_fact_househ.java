@@ -8,6 +8,7 @@ public class qr_fact_househ {
     private double[][] QR;
     private int m,n;
     private double[] diagR;
+    private double[][] qVals, rVals;
 
     /** Constructor also computes Householder Reflections
      *
@@ -57,7 +58,7 @@ public class qr_fact_househ {
 
     }
 
-    public Matrix getH() {
+    public Matrix getHMatrix() {
         Matrix hMatrix = new Matrix(m,n);
         double[][] H = hMatrix.getArray();
         for (int i = 0; i < m; i++) {
@@ -72,7 +73,7 @@ public class qr_fact_househ {
         return hMatrix;
     }
 
-    public Matrix getQ() {
+    public Matrix getQMatrix() {
         Matrix qMatrix = new Matrix(m,n);
         double[][] Q  = qMatrix.getArray();
         for (int k = n-1; k >= 0; k--) {
@@ -93,10 +94,11 @@ public class qr_fact_househ {
                 }
             }
         }
+        qVals = qMatrix.getArrayCopy();
         return qMatrix;
     }
 
-    public Matrix getR() {
+    public Matrix getRMatrix() {
         Matrix rMatrix = new Matrix(m,n);
         double[][] R = rMatrix.getArray();
         for (int i = 0; i < n; i++) {
@@ -110,7 +112,16 @@ public class qr_fact_househ {
                 }
             }
         }
+        rVals = rMatrix.getArray();
         return rMatrix;
+    }
+
+    public double[][] getQ() {
+        return qVals;
+    }
+
+    public double[][] getR() {
+        return rVals;
     }
 
     // If m !>= n the matrix can not be decomposed, return 0
