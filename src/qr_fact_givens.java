@@ -19,6 +19,7 @@ public class qr_fact_givens {
         // If row dimension is equal to column dimension
         // Then we can find the givens rotation of a matrix
         if (n == c) {
+
             // This declares the Hilbert Matrix and the A matrix
             // hVal is the value found from (1/(i+j)-1)
             // because we start at 0 index, we add 1 to both i and j
