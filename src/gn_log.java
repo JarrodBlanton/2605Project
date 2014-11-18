@@ -59,8 +59,8 @@ public class gn_log {
                     done = true;
                 } else {
                     String[] splits = read.split(",");
-                    arr[i] = Integer.parseInt(splits[0]);
-                    arr[i+1] = Integer.parseInt(splits[1]);
+                    arr[i] = Double.parseDouble(splits[0]);
+                    arr[i+1] = Double.parseDouble(splits[1]);
                     i+=2;
                 }
             }

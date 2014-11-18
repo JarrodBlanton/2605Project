@@ -11,14 +11,4 @@ public class MatrixTransformations {
         return matrix.times(rotationMatrix);
     }
 
-    public Matrix reflectMatrix(Matrix orig) {
-
-        return orig.times(//something here)
-        return new Matrix();
-    }
-
-    public Matrix projectMatrix() {
-
-    }
-
 }
