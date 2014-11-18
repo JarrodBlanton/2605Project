@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.lang.Math;
+import java.util.Scanner;
 
 /**
  * Created by JarrodBlanton on 11/11/14.
@@ -11,11 +12,27 @@ import java.lang.Math;
 public class gn_log {
 
     //Option+Enter = Import closest package
-    Matrix matrixB;
-    Matrix rVals;
-    Matrix jacobian;
+    static Matrix matrixB;
+    static Matrix rVals;
+    static Matrix jacobian;
 
-    public gn_log(File file, double a, double b, double c, int iter) {
+    public static void main(String[] args) {
+        Scanner kb = new Scanner(System.in);
+        System.out.println("Please provide path to file");
+        String fileName = kb.nextLine();
+        File file = new File(fileName);
+        System.out.println("Provide initial guess for a");
+        double a = Double.parseDouble(kb.nextLine());
+        System.out.println("Provide initial guess for b");
+        double b = Double.parseDouble(kb.nextLine());
+        System.out.println("Provide initial guess for c");
+        double c = Double.parseDouble(kb.nextLine());
+        System.out.println("Provide number of iterations");
+        int iter = Integer.parseInt(kb.nextLine());
+        gn_log(file, a, b, c, iter);
+    }
+
+    public static void gn_log(File file, double a, double b, double c, int iter) {
         // Initialize B a vector of 3 coordinates
         double[][] abc = new double[3][1];
         double[] arr;
@@ -81,6 +98,11 @@ public class gn_log {
             }
             count++;
         }
+        jacobian = new Matrix(jVals);
+        qr_fact_househ qrFact = new qr_fact_househ(jacobian);
+        Matrix Q = qrFact.getQ();
+        Matrix R = qrFact.getR();
+
 
     }
 }
