@@ -6,7 +6,7 @@ import Jama.Matrix;
 public class inverse {
 
     public Matrix inverse(Matrix matrix) {
-        return (cofactor(matrix).transpose()).times(1.0/matrix.det());
+        return (cofactor(matrix).transpose()).times(1.0/determinant(matrix));
     }
 
     public Matrix cofactor(Matrix matrix) {
@@ -16,13 +16,13 @@ public class inverse {
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < columns; ++j) {
                 cofactor.set(i, j,
-                        changeSign(i) * changeSign(j) * createSubMatrix(matrix, i, j).det());
+                        changeSign(i) * changeSign(j) * determinant(createSubMatrix(matrix, i, j)));
             }
         }
         return cofactor;
     }
 
-    public static Matrix createSubMatrix(Matrix matrix, int excluding_row, int excluding_column) {
+    public Matrix createSubMatrix(Matrix matrix, int excluding_row, int excluding_column) {
         int rows = matrix.getRowDimension();
         int columns = matrix.getColumnDimension();
         Matrix subMatrix = new Matrix(rows - 1, columns - 1);
@@ -47,5 +47,28 @@ public class inverse {
         } else {
             return  -1;
         }
+    }
+
+    public int determinant(Matrix matrix) {
+        int sum = 0;
+        int columns = matrix.getColumnDimension();
+        int rows = matrix.getRowDimension();
+        if (columns == 1) {
+            return (int) matrix.get(0, 0);
+        }
+        for (int i = 0; i < columns; ++i) {
+            Matrix smaller = new Matrix(rows - 1, columns - 1);
+            for (int a = 1; a < rows; ++a) {
+                for (int b = 0; b < columns; ++b) {
+                    if (b < i) {
+                        smaller.set(a - 1, b, matrix.get(a, b));
+                    } else if (b > i) {
+                        smaller.set(a - 1, b - 1, matrix.get(a, b));
+                    }
+                }
+            }
+            sum += changeSign(i) * matrix.get(0, i) * (determinant(smaller));
+        }
+        return sum;
     }
 }
