@@ -100,8 +100,8 @@ public class gn_log {
         }
         jacobian = new Matrix(jVals);
         qr_fact_househ qrFact = new qr_fact_househ(jacobian);
-        Matrix Q = qrFact.getQ();
-        Matrix R = qrFact.getR();
+        Matrix Q = qrFact.getQMatrix();
+        Matrix R = qrFact.getRMatrix();
 
 
     }
