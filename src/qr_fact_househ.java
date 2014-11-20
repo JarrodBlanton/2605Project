@@ -99,10 +99,10 @@ public class qr_fact_househ {
     }
 
     public Matrix getRMatrix() {
-        Matrix rMatrix = new Matrix(m,n);
+        Matrix rMatrix = new Matrix(n,n);
         double[][] R = rMatrix.getArray();
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
+            for (int j = 0; j < n; j++) {
                 if (i < j) {
                     R[i][j] = QR[i][j];
                 } else if (i > j) {
