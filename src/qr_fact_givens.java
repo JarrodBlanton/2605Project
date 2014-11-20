@@ -5,16 +5,19 @@ import Jama.Matrix;
  */
 public class qr_fact_givens {
     int n;
-    double[][] H = new double[n][n];
-    double[][] G = new double[n][n];
-    double[][] R = new double[n][n];
-    double[][] Q = new double[n][n];
+    double[][] H;
+    double[][] G;
+    double[][] R;
+    double[][] Q;
     Matrix rMatrix, gMatrix, qMatrix;
-
     public qr_fact_givens(Matrix M) {
 
         n = M.getRowDimension();
         int c = M.getColumnDimension();
+        H = new double[n][n];
+        G = new double[n][n];
+        R = new double[n][n];
+        Q = new double[n][n];
 
         // If row dimension is equal to column dimension
         // Then we can find the givens rotation of a matrix
