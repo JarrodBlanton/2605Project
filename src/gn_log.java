@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class gn_log {
 
     //Option+Enter = Import closest package
-    static Matrix matrixB;
+    static Matrix B;
     static Matrix rVals;
     static Matrix jacobian;
 
@@ -32,14 +32,14 @@ public class gn_log {
         gn_log(file, a, b, c, iter);
     }
 
-    public static void gn_log(File file, double a, double b, double c, int iter) {
+    public static Matrix gn_log(File file, double a, double b, double c, int iter) {
         // Initialize B a vector of 3 coordinates
         double[][] abc = new double[3][1];
         double[] arr;
         abc[0][0] = a;
         abc[1][0] = b;
         abc[2][0] = c;
-        matrixB = new Matrix(abc);
+        B = new Matrix(abc);
 
         //create arr
         try {
@@ -99,9 +99,59 @@ public class gn_log {
             count++;
         }
         jacobian = new Matrix(jVals);
-        qr_fact_househ qrFact = new qr_fact_househ(jacobian);
-        Matrix Q = qrFact.getQ();
-        Matrix R = qrFact.getR();
+
+        for (int i = 0; i < iter; i++) {
+            // Step a
+            qr_fact_househ qrFact = new qr_fact_househ(jacobian);
+            Matrix Q = qrFact.getQMatrix();
+            Matrix R = qrFact.getRMatrix();
+            Matrix qT = Q.transpose();
+            Matrix qTR = qT.times(rVals);
+            double[][] rMatrix = R.getArrayCopy();
+            double[][] qtrVals = qTR.getArrayCopy();
+            // initialize x Array for back substitution
+            double[][] xVals = new double[3][1];
+            xVals[2][0] = qtrVals[2][0] / rMatrix[2][2];
+            xVals[1][0] = (qtrVals[1][0] - (rMatrix[1][2] * xVals[2][0])) / rMatrix[1][1];
+            xVals[0][0] = (qtrVals[0][0] - (rMatrix[0][1] * xVals[1][0]) - (rMatrix[0][2] * xVals[2][0])) / rMatrix[0][0];
+            Matrix xBack = new Matrix(xVals);
+            B = B.minus(xBack);
+
+            // Step b
+            abc = B.getArrayCopy();
+            count = 0;
+            for (int j = 0; j < arr.length - 1; j+=2) {
+                double x = arr[j];
+                double y = arr[j + 1];
+                double r = y - (a * (Math.log(x + b)) + c);
+                rValsArray[count][0] = r;
+                count++;
+            }
+            rVals = new Matrix(rValsArray);
+
+            // Step c
+            count = 0;
+            for (int k = 0; k < arr.length - 1; k+=2) {
+                for (int l = 0; l < 3; l++) {
+                    // 3 cases:
+                    // partial a. -log(x+b)
+                    // partial b. -a/(b+x)
+                    // partial c. -1
+                    if (l == 0) {
+                        jVals[count][l] = -Math.log(arr[i] + b);
+                    } else if (l == 1) {
+                        jVals[count][l] = -a/(b+arr[i]);
+                    } else {
+                        jVals[count][l] = -1;
+                    }
+                }
+                count++;
+            }
+            jacobian = new Matrix(jVals);
+        }
+
+        return B;
+
 
 
     }
