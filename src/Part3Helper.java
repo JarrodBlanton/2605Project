@@ -6,7 +6,7 @@ import Jama.Matrix;
 public class Part3Helper {
 
     private Matrix letterF = new Matrix(11, 2);
-    private Matrix letterV = new Matrix(6, 2);
+    private Matrix letterI = new Matrix(12, 2);
     private Matrix letterT = new Matrix(8, 2);
 
     /**
@@ -15,10 +15,10 @@ public class Part3Helper {
      */
     public Part3Helper() {
         setUpLetterF();
-        setUpLetterV();
+        setUpLetterI();
         setUpLetterT();
         rotateF();
-        rotateV();
+        rotateI();
         rotateT();
     }
 
@@ -51,21 +51,33 @@ public class Part3Helper {
     }
 
     /**
-     * Sets up the letter V.
+     * Sets up the letter I.
      */
-    private void setUpLetterV() {
-        letterV.set(0, 0, 0);
-        letterV.set(0, 1, 0);
-        letterV.set(1, 0, 0);
-        letterV.set(1, 1, 0);
-        letterV.set(2, 0, 0);
-        letterV.set(2, 1, 0);
-        letterV.set(3, 0, 0);
-        letterV.set(3, 1, 0);
-        letterV.set(4, 0, 0);
-        letterV.set(4, 1, 0);
-        letterV.set(5, 0, 0);
-        letterV.set(5, 1, 0);
+    private void setUpLetterI() {
+        letterI.set(0, 0, 16);
+        letterI.set(0, 1, 0);
+        letterI.set(1, 0, 22);
+        letterI.set(1, 1, 0);
+        letterI.set(2, 0, 22);
+        letterI.set(2, 1, 2);
+        letterI.set(3, 0, 20);
+        letterI.set(3, 1, 2);
+        letterI.set(4, 0, 20);
+        letterI.set(4, 1, 8);
+        letterI.set(5, 0, 22);
+        letterI.set(5, 1, 8);
+        letterI.set(6, 0, 22);
+        letterI.set(6, 1, 10);
+        letterI.set(7, 0, 16);
+        letterI.set(7, 1, 10);
+        letterI.set(8, 0, 16);
+        letterI.set(8, 1, 8);
+        letterI.set(9, 0, 18);
+        letterI.set(9, 1, 8);
+        letterI.set(10, 0, 18);
+        letterI.set(10, 1, 2);
+        letterI.set(11, 0, 16);
+        letterI.set(11, 1, 2);
     }
 
     /**
@@ -104,7 +116,7 @@ public class Part3Helper {
      * Rotates the second letter two times about the line
      * in the y direction through the center of the letter.
      */
-    private void rotateV() {
+    private void rotateI() {
         for (int i = 0; i < 2; ++i) {
 
         }
