@@ -1,4 +1,5 @@
 import Jama.Matrix;
+import Jama.QRDecomposition;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,41 +12,27 @@ import java.util.Scanner;
  */
 public class test {
     public static void main(String[] piratenoises) {
-        Scanner kb = new Scanner(System.in);
-        System.out.println("file");
-        String fileName = kb.nextLine();
-        File file = new File(fileName);
-        double[] arr;
-        try {
-            BufferedReader lineCount = new BufferedReader(new FileReader(file));
-            int lines = 0;
-            while (lineCount.readLine() != null) {
-                lines++;
-            }
-            lineCount.close();
-            arr = new double[lines*2];
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            int i = 0;
-            boolean done = false;
-            while (br.ready() && !done) {
-                String read = br.readLine();
-                if (read == null) {
-                    done = true;
-                } else {
-                    String[] splits = read.split(",");
-                    arr[i] = Double.parseDouble(splits[0]);
-                    arr[i+1] = Double.parseDouble(splits[1]);
-                    i+=2;
-                }
-            }
+        double[][] qr = new double[3][3];
+        qr[0][0] = 12;
+        qr[0][1] = -51;
+        qr[0][2] = 4;
+        qr[1][0] = 6;
+        qr[1][1] = 167;
+        qr[1][2] = -68;
+        qr[2][0] = -4;
+        qr[2][1] = 24;
+        qr[2][2] = -41;
+        Matrix QR = new Matrix(qr);
+        QRDecomposition QR2 = new QRDecomposition(QR);
 
-        } catch (Exception e) {
-            System.out.println("file not found");
-            arr = new double[0];
-        }
-        for (int i = 0; i < arr.length; i++) {
-            System.out.println(arr[i]);
-        }
+        QR.print(1,3);
+        qr_fact_househ hh= new qr_fact_househ(QR);
+        Matrix Q = hh.getQMatrix();
+        Matrix R = hh.getRMatrix();
+
+        Q.print(1, 3);
+        R.print(1, 3);
+
+        System.out.println(-2.0*(-1.0*0.0));
     }
-
 }

@@ -94,6 +94,14 @@ public class qr_fact_househ {
                 }
             }
         }
+        for (int i = 0; i < qMatrix.getRowDimension(); i++) {
+            for (int j = 0; j < qMatrix.getColumnDimension(); j++) {
+                if (Q[i][j] != 0.0) {
+                    Q[i][j] = -Q[i][j];
+                }
+            }
+        }
+        qMatrix = new Matrix(Q);
         qVals = qMatrix.getArrayCopy();
         return qMatrix;
     }
@@ -104,14 +112,22 @@ public class qr_fact_househ {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (i < j) {
-                    R[i][j] = QR[i][j];
+                    R[i][j] = -QR[i][j];
                 } else if (i > j) {
                     R[i][j] = 0.0;
                 } else { // i == j
-                    R[i][j] = diagR[i];
+                    R[i][j] = -diagR[i];
                 }
             }
         }
+//        for (int i = 0; i < rMatrix.getRowDimension(); i++) {
+//            for (int j = 0; j < rMatrix.getColumnDimension(); j++) {
+//                if (R[i][j] != 0.0) {
+//                    R[i][j] = -R[i][j];
+//                }
+//            }
+//        }
+        rMatrix = new Matrix(R);
         rVals = rMatrix.getArray();
         return rMatrix;
     }
