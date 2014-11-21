@@ -23,15 +23,19 @@ public class test {
         qr[2][1] = 24;
         qr[2][2] = -41;
         Matrix QR = new Matrix(qr);
-        QRDecomposition QR2 = new QRDecomposition(QR);
+        qr_fact_givens givens = new qr_fact_givens(QR);
+        Matrix q = givens.getQMatrix();
+        q.print(1,3);
+        Matrix r = givens.getRMatrix();
+        r.print(1,3);
 
-        QR.print(1,3);
-        qr_fact_househ hh= new qr_fact_househ(QR);
-        Matrix Q = hh.getQMatrix();
-        Matrix R = hh.getRMatrix();
-
-        Q.print(1, 3);
-        R.print(1, 3);
+//        QR.print(1,3);
+//        qr_fact_givens g= new qr_fact_givens(QR);
+//        Matrix Q = g.getQMatrix();
+//        Matrix R = g.getRMatrix();
+//
+//        Q.print(1, 3);
+//        R.print(1, 3);
 
         System.out.println(-2.0*(-1.0*0.0));
     }
