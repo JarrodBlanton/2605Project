@@ -79,6 +79,7 @@ public class gn_log {
             count++;
         }
         rVals = new Matrix(rValsArray);
+        rVals.print(1,3);
 
         double[][] jVals = new double[arr.length/2][3];
         count = 0;
@@ -99,6 +100,7 @@ public class gn_log {
             count++;
         }
         jacobian = new Matrix(jVals);
+        jacobian.print(1,3);
 
         for (int i = 0; i < iter; i++) {
             // Step a
@@ -116,9 +118,13 @@ public class gn_log {
             xVals[0][0] = (qtrVals[0][0] - (rMatrix[0][1] * xVals[1][0]) - (rMatrix[0][2] * xVals[2][0])) / rMatrix[0][0];
             Matrix xBack = new Matrix(xVals);
             B = B.minus(xBack);
+            B.print(1,3);
 
             // Step b
             abc = B.getArrayCopy();
+            a = abc[0][0];
+            b = abc[1][0];
+            c = abc[2][0];
             count = 0;
             for (int j = 0; j < arr.length - 1; j+=2) {
                 double x = arr[j];
@@ -128,6 +134,7 @@ public class gn_log {
                 count++;
             }
             rVals = new Matrix(rValsArray);
+            rVals.print(1,3);
 
             // Step c
             count = 0;
@@ -138,9 +145,9 @@ public class gn_log {
                     // partial b. -a/(b+x)
                     // partial c. -1
                     if (l == 0) {
-                        jVals[count][l] = -Math.log(arr[i] + b);
+                        jVals[count][l] = -Math.log(arr[k] + b);
                     } else if (l == 1) {
-                        jVals[count][l] = -a/(b+arr[i]);
+                        jVals[count][l] = -a/(b+arr[k]);
                     } else {
                         jVals[count][l] = -1;
                     }
@@ -148,11 +155,9 @@ public class gn_log {
                 count++;
             }
             jacobian = new Matrix(jVals);
+            jacobian.print(1,6);
         }
-
+        B.print(1,3);
         return B;
-
-
-
     }
 }
