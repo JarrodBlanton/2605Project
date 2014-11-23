@@ -72,7 +72,7 @@ public class gn_qua {
             double x = arr[i];
             double y = arr[i + 1];
             double solution = y - (a * (Math.pow(x, 2)) + b * (x) + c);
-            rValsArr[count][1] = solution;
+            rValsArr[count][0] = solution;
             count++;
         }
         rVals = new Matrix(rValsArr);
@@ -86,7 +86,7 @@ public class gn_qua {
                 } else if (j == 1) {
                     jValsArr[count][j] = -1 * arr[i];
                 } else {
-                    jValsArr[count][i] = -1;
+                    jValsArr[count][j] = -1;
                 }
             }
             count++;
@@ -109,7 +109,6 @@ public class gn_qua {
             xVals[0][0] = (qtrVals[0][0] - (rMatrix[0][1] * xVals[1][0]) - (rMatrix[0][2] * xVals[2][0])) / rMatrix[0][0];
             Matrix xBack = new Matrix(xVals);
             B = B.minus(xBack);
-            B.print(1,3);
 
             // Step b
             abc = B.getArrayCopy();
@@ -121,7 +120,7 @@ public class gn_qua {
                 double x = arr[j];
                 double y = arr[j + 1];
                 double solution = y - (a * (Math.pow(x, 2)) + b * (x) + c);
-                rValsArr[count][1] = solution;
+                rValsArr[count][0] = solution;
                 count++;
             }
             rVals = new Matrix(rValsArr);
@@ -135,13 +134,14 @@ public class gn_qua {
                     } else if (l == 1) {
                         jValsArr[count][l] = -1 * arr[k];
                     } else {
-                        jValsArr[count][i] = -1;
+                        jValsArr[count][l] = -1;
                     }
                 }
                 count++;
             }
             jacobian = new Matrix(jValsArr);
         }
+        B.print(1,3);
         return B;
     }
 

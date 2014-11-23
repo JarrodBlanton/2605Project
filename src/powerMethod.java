@@ -69,6 +69,7 @@ public class powerMethod {
             System.out.println("EigenVector: ");
             U.print(1,3);
             System.out.println("Iterations: " + i);
+            System.out.println();
         } else {
             System.out.println("Reached max number of iterations.");
         }
