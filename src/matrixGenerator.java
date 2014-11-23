@@ -13,7 +13,6 @@ public class matrixGenerator {
     static double[] detA = new double[1000];
     static double[] itersA = new double[1000];
     static double[] itersAIn = new double[1000];
-    static int count =  0;
     static Inverse inverter = new Inverse();
     static Trace Trace = new Trace();
 
