@@ -3,13 +3,13 @@ import Jama.Matrix;
 /**
  * Created by JoelAnderson on 11/18/14.
  */
-public class inverse {
+public class Inverse {
 
-    public Matrix inverse(Matrix matrix) {
+    public static Matrix inverse(Matrix matrix) {
         return (cofactor(matrix).transpose()).times(1.0/determinant(matrix));
     }
 
-    public Matrix cofactor(Matrix matrix) {
+    public static Matrix cofactor(Matrix matrix) {
         int rows = matrix.getRowDimension();
         int columns = matrix.getColumnDimension();
         Matrix cofactor = new Matrix(rows, columns);
@@ -22,7 +22,7 @@ public class inverse {
         return cofactor;
     }
 
-    public Matrix createSubMatrix(Matrix matrix, int excluding_row, int excluding_column) {
+    public static Matrix createSubMatrix(Matrix matrix, int excluding_row, int excluding_column) {
         int rows = matrix.getRowDimension();
         int columns = matrix.getColumnDimension();
         Matrix subMatrix = new Matrix(rows - 1, columns - 1);
@@ -41,7 +41,7 @@ public class inverse {
         return subMatrix;
     }
 
-    public int changeSign(int i) {
+    public static int changeSign(int i) {
         if (i % 2 == 0) {
             return 1;
         } else {
@@ -49,7 +49,7 @@ public class inverse {
         }
     }
 
-    public int determinant(Matrix matrix) {
+    public static int determinant(Matrix matrix) {
         int sum = 0;
         int columns = matrix.getColumnDimension();
         int rows = matrix.getRowDimension();

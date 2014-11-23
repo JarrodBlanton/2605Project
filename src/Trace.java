@@ -3,7 +3,7 @@ import Jama.Matrix;
 /**
  * Created by JoelAnderson on 11/18/14.
  */
-public class trace {
+public class Trace {
 
     public double trace(Matrix matrix) {
         double trace = 0;

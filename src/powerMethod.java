@@ -9,8 +9,17 @@ public class powerMethod {
 
     static double tolerance = .00005;
     static Matrix vector;
+    static Matrix U;
+    static double eigen;
     static int iters;
 
+
+    public powerMethod() {
+        double[][] vecDoub = new double[2][1];
+        vecDoub[0][0] = 1;
+        vecDoub[1][0] = 1;
+        vector = new Matrix(vecDoub);
+    }
 
     public static void main(String[] args) {
         Scanner kb = new Scanner(System.in);
@@ -27,34 +36,42 @@ public class powerMethod {
         }
         System.out.println("Give maximum number of iterations:");
         iters = Integer.parseInt(kb.nextLine());
-        double[][] vecDoub = new double[2][1];
-        vecDoub[0][0] = 1;
-        vecDoub[1][0] = 1;
-        vector = new Matrix(vecDoub);
         power_method(vals, iters);
+    }
+
+    public Matrix getU() {
+        return U;
+    }
+
+    public int getIters() {
+        return iters;
+    }
+
+    public double getEigen() {
+        return eigen;
     }
 
     public static void power_method(double[][] doubs, int iters) {
         Matrix A = new Matrix(doubs);
-        Matrix U = vector;
+        U = vector;
         int i = 0;
         double currTol = Double.MAX_VALUE;
-        double eigen = Double.MAX_VALUE;
-        while (i < iters || currTol > tolerance) {
+        eigen = Double.MAX_VALUE;
+        while (i < iters && currTol > tolerance) {
             U = A.times(U);
             currTol = Math.abs(U.get(0,0) - eigen);
             eigen = U.get(0,0);
             U = U.times(1/U.get(0,0));
             i++;
         }
-        if (i != iters - 1) {
+        if (i != iters) {
             System.out.println("EigenValue: " + eigen);
             System.out.println("EigenVector: ");
             U.print(1,3);
             System.out.println("Iterations: " + i);
+        } else {
+            System.out.println("Reached max number of iterations.");
         }
-
-
     }
 
 }
