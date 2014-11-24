@@ -5,10 +5,9 @@ import Jama.Matrix;
  */
 
 public class qr_fact_househ {
-    private double[][] QR;
     private int m,n;
     private double[] diagR;
-    private double[][] qVals, rVals;
+    private double[][] QR, qVals, rVals;
 
     /** Constructor also computes Householder Reflections
      *
@@ -58,21 +57,6 @@ public class qr_fact_househ {
 
     }
 
-    public Matrix getHMatrix() {
-        Matrix hMatrix = new Matrix(m,n);
-        double[][] H = hMatrix.getArray();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i >= j) {
-                    H[i][j] = QR[i][j];
-                } else {
-                    H[i][j] = 0.0;
-                }
-            }
-        }
-        return hMatrix;
-    }
-
     public Matrix getQMatrix() {
         Matrix qMatrix = new Matrix(m,n);
         double[][] Q  = qMatrix.getArray();
@@ -120,13 +104,6 @@ public class qr_fact_househ {
                 }
             }
         }
-//        for (int i = 0; i < rMatrix.getRowDimension(); i++) {
-//            for (int j = 0; j < rMatrix.getColumnDimension(); j++) {
-//                if (R[i][j] != 0.0) {
-//                    R[i][j] = -R[i][j];
-//                }
-//            }
-//        }
         rMatrix = new Matrix(R);
         rVals = rMatrix.getArray();
         return rMatrix;
