@@ -93,12 +93,8 @@ public class Part3Helper {
     }
 
     /**
-     * Helper method that sets up letters, then
-     * plays the movie by rotating the letters.
+     * Sets up the letters in 3 separate matrices.
      */
-    public Part3Helper() {
-    }
-
     public void setUpLetters() {
         setUpLetterF();
         setUpLetterI();
@@ -219,6 +215,15 @@ public class Part3Helper {
         letterT = letterT.transpose();
     }
 
+    /**
+     * Creates the rotation matrix and returns a rotated matrix.
+     *
+     * @param matrix the matrix to be rotated
+     * @param rotation the number of rotations
+     * @param frames the total number of frames
+     * @param direction the axis around which the letter is rotated
+     * @return the rotated matrix
+     */
     private static Matrix rotate(Matrix matrix, int rotation, int frames, String direction) {
         double angle = (rotation * Math.PI * 2) / (frames);
         Matrix rotationMatrix = new Matrix(3, 3);
@@ -265,32 +270,45 @@ public class Part3Helper {
             return new Dimension(800, 800);
         }
 
+        /**
+         * Removes all lines from arraylist
+         */
         public void clearLines() {
             this.lines.clear();
         }
 
+        /**
+         * Adds line to arraylist
+         * @param x1 the first x coordinate
+         * @param y1 the first y coordinate
+         * @param x2 the second x coordinate
+         * @param y2 the second y coordinate
+         */
         public void addLine(int x1, int y1, int x2, int y2) {
             this.lines.add(new Line(x1, y1, x2, y2));
         }
 
         public void paintComponent(Graphics g) {
-            for(final Line r : lines) {
+            for (final Line r : lines) {
                 r.paint2D((Graphics2D) g);
             }
         }
     }
 
     private static class Line {
+
         public final int x1;
         public final int x2;
         public final int y1;
         public final int y2;
+
         public Line(int x1, int y1, int x2, int y2) {
             this.x1 = x1;
             this.x2 = x2;
             this.y1 = y1;
             this.y2 = y2;
         }
+        
         public void paint2D(Graphics2D g2) {
             AffineTransform tform = AffineTransform.getTranslateInstance(0, 400);
             tform.scale( 1, -1);
