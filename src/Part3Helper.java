@@ -15,8 +15,6 @@ public class Part3Helper {
     private Matrix letterF = new Matrix(11, 3);
     private Matrix letterI = new Matrix(12, 3);
     private Matrix letterT = new Matrix(8, 3);
-    private MatrixTransformations transformer
-            = new MatrixTransformations();
     public static Timer timer;
     private static int counter = 0;
 
@@ -34,11 +32,11 @@ public class Part3Helper {
         timer = new Timer(41 + 2/3, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (counter <= 121) {
+                if (counter <= 120) {
                     grid.clearLines();
-                    helper.letterF = rotate(helper.letterF, 3, 121, "Z");
-                    helper.letterI = rotate(helper.letterI, 2, 121, "Y");
-                    helper.letterT = rotate(helper.letterT, 5, 121, "X");
+                    helper.letterF = rotate(helper.letterF, 3, 120, "Z");
+                    helper.letterI = rotate(helper.letterI, 2, 120, "Y");
+                    helper.letterT = rotate(helper.letterT, 5, 120, "X");
                     drawMatrices(grid, helper);
                     grid.repaint();
                     ++counter;
