@@ -84,7 +84,7 @@ public class gn_exp {
                 if (j==0) {
                     jValsArray[count][j] = -1 * Math.exp(b * arr[i]);
                 } else if (j==1) {
-                    jValsArray[count][j] = -1 * arr[i] * Math.exp(b * arr[i]);
+                    jValsArray[count][j] = -1 * a * arr[i] * Math.exp(b * arr[i]);
                 } else {
                     jValsArray[count][j] = -1;
                 }
