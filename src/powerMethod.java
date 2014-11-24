@@ -7,11 +7,12 @@ import java.util.Scanner;
  */
 public class powerMethod {
 
-    static double tolerance = .00005;
+    static double tolerance;
     static Matrix vector;
     static Matrix U;
     static double eigen;
     static int iters;
+    static int finalIters;
 
 
     public powerMethod() {
@@ -34,9 +35,11 @@ public class powerMethod {
                 vals[i][j] = Double.parseDouble(kb.nextLine());
             }
         }
+        System.out.println("Give the tolerance value:");
+        tolerance = Double.parseDouble(kb.nextLine());
         System.out.println("Give maximum number of iterations:");
         iters = Integer.parseInt(kb.nextLine());
-        power_method(vals, iters);
+        power_method(vals, iters, tolerance);
     }
 
     public Matrix getU() {
@@ -44,14 +47,14 @@ public class powerMethod {
     }
 
     public int getIters() {
-        return iters;
+        return finalIters;
     }
 
     public double getEigen() {
         return eigen;
     }
 
-    public static void power_method(double[][] doubs, int iters) {
+    public static void power_method(double[][] doubs, int iters, double tolerance) {
         Matrix A = new Matrix(doubs);
         U = vector;
         int i = 0;
@@ -65,6 +68,7 @@ public class powerMethod {
             i++;
         }
         if (i != iters) {
+            finalIters = i;
             System.out.println("EigenValue: " + eigen);
             System.out.println("EigenVector: ");
             U.print(1,3);

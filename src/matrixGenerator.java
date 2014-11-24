@@ -11,8 +11,8 @@ public class matrixGenerator {
 
     static double[] traceA = new double[1000];
     static double[] detA = new double[1000];
-    static double[] itersA = new double[1000];
-    static double[] itersAIn = new double[1000];
+    static int[] itersA = new int[1000];
+    static int[] itersAIn = new int[1000];
     static Inverse inverter = new Inverse();
     static Trace Trace = new Trace();
 
@@ -25,13 +25,13 @@ public class matrixGenerator {
             double[][] currDoubs = generateMatrix();
             powerMethod pow = new powerMethod();
             powerMethod powIn = new powerMethod();
-            pow.power_method(currDoubs, 100);
+            pow.power_method(currDoubs, 100, .00005);
             traceA[i] = Trace.trace(new Matrix(currDoubs));
             detA[i] = inverter.determinant(new Matrix(currDoubs));
             itersA[i] = pow.getIters();
             Matrix toInvert = new Matrix(currDoubs);
             toInvert = inverter.inverse(toInvert);
-            powIn.power_method(toInvert.getArrayCopy(), 100);
+            powIn.power_method(toInvert.getArrayCopy(), 100, .00005);
             itersAIn[i] = powIn.getIters();
         }
         fileWrite();
@@ -66,9 +66,9 @@ public class matrixGenerator {
                 bw1.newLine();
                 bw2.write(Double.toString(detA[i]));
                 bw2.newLine();
-                bw3.write(Double.toString(itersA[i]));
+                bw3.write(Integer.toString(itersA[i]));
                 bw3.newLine();
-                bw4.write(Double.toString(itersAIn[i]));
+                bw4.write(Integer.toString(itersAIn[i]));
                 bw4.newLine();
             }
             bw1.close();

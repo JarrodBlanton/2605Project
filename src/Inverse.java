@@ -49,12 +49,12 @@ public class Inverse {
         }
     }
 
-    public static int determinant(Matrix matrix) {
-        int sum = 0;
+    public static double determinant(Matrix matrix) {
+        double sum = 0.0;
         int columns = matrix.getColumnDimension();
         int rows = matrix.getRowDimension();
         if (columns == 1) {
-            return (int) matrix.get(0, 0);
+            return matrix.get(0, 0);
         }
         for (int i = 0; i < columns; ++i) {
             Matrix smaller = new Matrix(rows - 1, columns - 1);
