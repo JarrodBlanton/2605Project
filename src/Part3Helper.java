@@ -253,18 +253,7 @@ public class Part3Helper {
             rotationMatrix.set(2, 1, 0);
             rotationMatrix.set(2, 2, Math.cos(angle));
         }
-        return rotatedMatrix(matrix, rotationMatrix);
-    }
-
-    private static Matrix rotatedMatrix(Matrix matrix, Matrix rotationMatrix) {
-        Matrix translationMatrix = new Matrix(matrix.getRowDimension(), matrix.getColumnDimension());
-        for (int i = 0; i < translationMatrix.getColumnDimension(); ++i) {
-            translationMatrix.set(0, i, 2.0);
-            translationMatrix.set(1, i, 3.0);
-            translationMatrix.set(2, i, 2.0);
-        }
-        return rotationMatrix.times(
-                matrix.minus(translationMatrix)).plus(translationMatrix);
+        return rotationMatrix.times(matrix);
     }
 
     private static class MyPanel extends JPanel {
