@@ -142,6 +142,7 @@ public class gn_exp {
             }
             jacobian = new Matrix(jValsArray);
         }
+        B.print(1,3);
         return B;
     }
 }

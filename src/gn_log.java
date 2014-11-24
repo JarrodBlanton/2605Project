@@ -79,7 +79,6 @@ public class gn_log {
             count++;
         }
         rVals = new Matrix(rValsArray);
-        rVals.print(1,3);
 
         double[][] jVals = new double[arr.length/2][3];
         count = 0;
@@ -100,7 +99,6 @@ public class gn_log {
             count++;
         }
         jacobian = new Matrix(jVals);
-        jacobian.print(1,3);
 
         for (int i = 0; i < iter; i++) {
             // Step a
@@ -118,7 +116,6 @@ public class gn_log {
             xVals[0][0] = (qtrVals[0][0] - (rMatrix[0][1] * xVals[1][0]) - (rMatrix[0][2] * xVals[2][0])) / rMatrix[0][0];
             Matrix xBack = new Matrix(xVals);
             B = B.minus(xBack);
-            B.print(1,3);
 
             // Step b
             abc = B.getArrayCopy();
@@ -134,7 +131,6 @@ public class gn_log {
                 count++;
             }
             rVals = new Matrix(rValsArray);
-            rVals.print(1,3);
 
             // Step c
             count = 0;
@@ -155,7 +151,6 @@ public class gn_log {
                 count++;
             }
             jacobian = new Matrix(jVals);
-            jacobian.print(1,6);
         }
         B.print(1,3);
         return B;

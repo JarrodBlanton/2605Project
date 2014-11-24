@@ -72,7 +72,7 @@ public class gn_rat {
             double y = arr[i + 1];
             double x = arr[i];
             double solution = y - ((a * x) / (x + b) + c);
-            rValsArr[count][1] = solution;
+            rValsArr[count][0] = solution;
             count++;
         }
         rVals = new Matrix(rValsArr);
@@ -122,7 +122,7 @@ public class gn_rat {
                 double y = arr[j + 1];
                 double x = arr[j];
                 double solution = y - ((a * x) / (x + b) + c);
-                rValsArr[count][1] = solution;
+                rValsArr[count][0] = solution;
                 count++;
             }
             rVals = new Matrix(rValsArr);
@@ -144,7 +144,7 @@ public class gn_rat {
 
             jacobian = new Matrix(jValsArr);
         }
-
+        B.print(1,3);
         return B;
 
     }
