@@ -4,91 +4,118 @@ import Jama.Matrix;
  * Created by JarrodBlanton on 11/14/14.
  */
 public class qr_fact_givens {
-    int n;
-    double[][] G;
-    double[][] R;
-    double[][] Q;
-    Matrix rMatrix, gMatrix, qMatrix;
+    double[][] A;
+    int rows, cols;
+
     public qr_fact_givens(Matrix M) {
-        n = M.getRowDimension();
-        double[][] m = M.getArrayCopy();
-        G = new double[n][n];
-        R = new double[n][n];
-        R = m;
-        Q = new double[n][n];
-        // Create Givens Rotations:
-        // G Matrix and Q matrix will be identity.
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i==j) {
-                    G[i][j] = 1.0;
-                    Q[i][j] = 1.0;
-                } else {
-                    G[i][j] = 0.0;
-                    Q[i][j] = 0.0;
-                }
-            }
-        }
-
-        double a = R[0][n-2];
-        double b = R[0][n-1];
-        double cosX, sinX;
-
-        // For loop begins rotations
-        for (int k = 0; k < n; k++) {
-            for (int l = n-1; l > k; l--) {
-                a = R[l-1][k];
-                b = R[l][k];
-                cosX = a/(Math.sqrt(a+b));
-                sinX = -b/(Math.sqrt(a+b));
-
-                G[l][l] = cosX;
-                G[l][l-1] = sinX;
-                G[l-1][l] = -sinX;
-                G[l-1][l-1] = cosX;
-
-                gMatrix = new Matrix(G);
-                rMatrix = new Matrix(R);
-                rMatrix = rMatrix.times(gMatrix);
-
-                qMatrix = new Matrix(Q);
-                qMatrix = qMatrix.times(gMatrix);
-
-                R = rMatrix.getArrayCopy();
-                for (int x = 0; x < n; x++) {
-                    for (int y = 0; y < n; y++) {
-                        if (x == y) {
-                            G[x][y] = 1.0;
+        A = M.getArrayCopy();
+        rows = M.getRowDimension();
+        cols = M.getColumnDimension();
+        for (int j = 0; j < cols - 1; j++) {
+            for (int i = j+1; i < rows; i++) {
+                if (A[i][j] != 0) {
+                    double r = Math.sqrt((Math.pow(A[j][j], 2.0)) + (Math.pow(A[i][j], 2.0)));
+                    if (A[i][j] < 0) {
+                        r = -r;
+                    }
+                    double s = A[i][j]/r;
+                    double c = A[j][j]/r;
+                    // Apply Givens
+                    for (int k = j; k < cols; k++) {
+                        double jk = A[j][k];
+                        double ik = A[i][k];
+                        A[j][k] = (c*jk) + (s*ik);
+                        A[i][k] = (-s*jk) + (c*ik);
+                    }
+                    if (c == 0) {
+                        A[i][j] = 0.0;
+                    }
+                    if (Math.abs(s) < Math.abs(c)) {
+                        if (c < 0) {
+                            A[i][j] = -.5 * s;
                         } else {
-                            G[x][y] = 0.0;
+                            A[i][j] = .5 * s;
+                        }
+                    } else {
+                        A[i][j] = 2.0/c;
+                    }
+                    if (Math.abs(c) <= Math.abs(s)) {
+                        if (s < 0) {
+                            A[i][j] = -2.0/c;
+                        } else {
+                            A[i][j] = 2.0 / c;
                         }
                     }
                 }
-
             }
         }
-
-
-
-
-    }
-
-    public Matrix getQMatrix() {
-        return qMatrix;
     }
 
     public double[][] getQ() {
-        return qMatrix.getArrayCopy();
-    }
+        int m = Math.max(A[0].length, A[1].length);
+        double[][] Q = new double[m][m];
 
-    public Matrix getRMatrix() {
-        return rMatrix;
+        // Identity Matrix
+        for (int i = 0; i < Q[0].length; i++) {
+            Q[i][i] = 1;
+        }
+
+        for (int j = cols - 1; j >= 0; j--) {
+            for (int i = rows - 1; i > j; i--) {
+                double aij = A[i][j];
+
+                double c = 0.0;
+                double s = 0.0;
+
+                if (aij == 0.0) {
+                    c = 0.0;
+                    s = 1.0;
+                } else if (Math.abs(aij) < 1.0) {
+                    s = 2.0 * Math.abs(aij);
+                    c = Math.sqrt(1 - Math.pow(s, 2.0));
+                    if (aij < 0) {
+                        c = -c;
+                    }
+                } else {
+                    c = 2.0/aij;
+                    s = Math.sqrt(1 - Math.pow(c, 2.0));
+                }
+
+                for (int k = 0; k < cols; k++) {
+                    double jk = Q[j][k];
+                    double ik = Q[i][k];
+
+                    Q[j][k] = (c*jk) - (s*ik);
+                    Q[i][k] = (s*jk) - (c*ik);
+                }
+
+            }
+        }
+//        for (int i = 0; i < Q[0].length; i++) {
+//            for (int j = 0; j < Q[1].length; j++) {
+//                Q[i][j] = -Q[i][j];
+//            }
+//        }
+        return Q;
     }
 
     public double[][] getR() {
-        return rMatrix.getArrayCopy();
+        int n = Math.min(A[0].length, A[1].length);
+        double[][] R = new double[n][n];
+        R = A.clone();
+        for (int i = 0; i < R[0].length; i++) {
+            for (int j = 0; j < i; j++) {
+                R[i][j] = 0.0;
+            }
+        }
+
+        for (int i = 0; i < R[0].length - 1; i++) {
+            for (int j = 0; j < R[1].length; j++) {
+                if (R[i][j] != 0.0) {
+                    R[i][j] = -R[i][j];
+                }
+            }
+        }
+        return R;
     }
-//    public double matrixError() {
-//        return 0.0;
-//    }
 }
