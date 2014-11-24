@@ -6,6 +6,7 @@ import Jama.Matrix;
 public class qr_fact_givens {
     double[][] A;
     int rows, cols;
+    Matrix qMatrix, rMatrix;
 
     public qr_fact_givens(Matrix M) {
         A = M.getArrayCopy();
@@ -96,7 +97,13 @@ public class qr_fact_givens {
 //                Q[i][j] = -Q[i][j];
 //            }
 //        }
+
+        qMatrix = new Matrix(Q);
         return Q;
+    }
+
+    public Matrix getQMatrix() {
+        return qMatrix;
     }
 
     public double[][] getR() {
@@ -116,6 +123,11 @@ public class qr_fact_givens {
                 }
             }
         }
+        rMatrix = new Matrix(R);
         return R;
+    }
+
+    public Matrix getRMatrix() {
+        return rMatrix;
     }
 }
