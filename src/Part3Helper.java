@@ -308,7 +308,7 @@ public class Part3Helper {
             this.y1 = y1;
             this.y2 = y2;
         }
-        
+
         public void paint2D(Graphics2D g2) {
             AffineTransform tform = AffineTransform.getTranslateInstance(0, 400);
             tform.scale( 1, -1);
